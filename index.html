@@ -18,7 +18,6 @@
         }
     </script>
     <style>
-        /* Плавные переходы */
         .property-card {
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
@@ -26,8 +25,6 @@
             transform: translateY(-6px);
             box-shadow: 0 25px 50px -12px rgba(52, 211, 153, 0.25);
         }
-
-        /* Шапка — анимация появления/исчезновения */
         #main-header {
             transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.35s ease;
         }
@@ -35,8 +32,6 @@
             transform: translateY(-100%);
             opacity: 0;
         }
-
-        /* Скрытая кнопка обновлений */
         .secret-trigger {
             opacity: 0.25;
             font-size: 10px;
@@ -45,8 +40,6 @@
         .secret-trigger:hover {
             opacity: 0.7;
         }
-
-        /* Стеклянный эффект */
         .glass {
             background: rgba(15, 23, 42, 0.55);
             backdrop-filter: blur(20px);
@@ -61,7 +54,6 @@
 </head>
 <body class="bg-slate-950 text-slate-100 font-sans min-h-screen flex flex-col selection:bg-emerald-400 selection:text-slate-950">
 
-    <!-- ШАПКА -->
     <header id="main-header" class="glass-strong border-b border-white/5 sticky top-0 z-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 py-3.5 flex flex-col sm:flex-row justify-between items-center gap-3">
             <div class="flex items-center gap-3 cursor-pointer group" onclick="switchTab('home')">
@@ -76,10 +68,8 @@
         </div>
     </header>
 
-    <!-- ОСНОВНОЙ КОНТЕНТ -->
     <main class="max-w-7xl mx-auto px-4 sm:px-6 py-10 w-full flex-grow space-y-10">
 
-        <!-- 1. ГЛАВНАЯ -->
         <div id="tab-home" class="space-y-10">
             <section class="relative overflow-hidden rounded-3xl p-8 sm:p-14 border border-white/10 shadow-2xl"
                      style="background: linear-gradient(135deg, rgba(16,185,129,0.15) 0%, rgba(79,70,229,0.12) 50%, rgba(15,23,42,0.6) 100%); backdrop-filter: blur(20px);">
@@ -119,7 +109,6 @@
             </section>
         </div>
 
-        <!-- 2. НЕДВИЖИМОСТЬ -->
         <div id="tab-estate" class="hidden space-y-6">
             <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 glass rounded-3xl p-6 border border-white/5">
                 <div>
@@ -137,7 +126,6 @@
             <div id="properties-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
         </div>
 
-        <!-- 3. ДЕТАЛЬНЫЙ ПРОСМОТР -->
         <div id="tab-property-detail" class="hidden space-y-6">
             <button onclick="switchTab('estate')" 
                 class="inline-flex items-center gap-2 text-sm font-semibold glass border border-white/10 px-5 py-2.5 rounded-xl text-slate-200 hover:bg-white/10 transition">
@@ -150,7 +138,6 @@
                     <span id="det-price" class="text-xl sm:text-2xl font-black text-emerald-300 bg-emerald-950/40 px-5 py-2 rounded-xl border border-emerald-500/20">0 ₽</span>
                 </div>
 
-                <!-- Карусель -->
                 <div class="relative w-full h-72 sm:h-96 bg-slate-900/80 rounded-2xl overflow-hidden border border-white/5">
                     <div id="det-img-container" class="w-full h-full flex items-center justify-center text-slate-400">
                         Загрузка фото...
@@ -172,7 +159,6 @@
             </div>
         </div>
 
-        <!-- 4. НОВОСТИ -->
         <div id="tab-news" class="hidden space-y-6">
             <div class="glass rounded-3xl p-6 border border-white/5">
                 <h2 class="text-2xl font-black text-white">📢 Новости проекта и хроники строек</h2>
@@ -196,19 +182,15 @@
         </div>
     </main>
 
-    <!-- ФУТЕР + СКРЫТАЯ ВКЛАДКА -->
     <footer class="mt-16 border-t border-white/5">
         <div class="max-w-7xl mx-auto px-4 py-8 text-center">
             <p class="text-xs text-slate-500 mb-3">© 2026 Проект Акарданск. Все права защищены.</p>
-            
-            <!-- Скрытый триггер (очень незаметный) -->
             <button onclick="toggleUpdatesPanel()" class="secret-trigger text-slate-600 hover:text-slate-400">
                 ···
             </button>
         </div>
     </footer>
 
-    <!-- ПАНЕЛЬ ОБНОВЛЕНИЙ (скрыта по умолчанию) -->
     <div id="updates-panel" class="fixed inset-0 z-[100] hidden items-center justify-center p-4" style="background: rgba(0,0,0,0.7); backdrop-filter: blur(8px);">
         <div class="glass-strong w-full max-w-lg rounded-3xl border border-white/10 shadow-2xl overflow-hidden">
             <div class="flex items-center justify-between px-6 py-4 border-b border-white/5">
@@ -216,7 +198,6 @@
                 <button onclick="toggleUpdatesPanel()" class="text-slate-400 hover:text-white transition text-xl leading-none">&times;</button>
             </div>
             <div class="p-6 max-h-[60vh] overflow-y-auto space-y-4 text-sm">
-                <!-- ===== СЮДА ДОБАВЛЯЙ ОБНОВЛЕНИЯ ===== -->
                 <div class="space-y-1">
                     <div class="flex items-center gap-2">
                         <span class="text-emerald-400 font-bold text-xs">v1.2</span>
@@ -226,7 +207,6 @@
                     <p class="text-slate-300">• Шапка теперь прячется при скролле вниз</p>
                     <p class="text-slate-300">• Добавлена скрытая панель обновлений</p>
                 </div>
-
                 <div class="space-y-1 pt-3 border-t border-white/5">
                     <div class="flex items-center gap-2">
                         <span class="text-emerald-400 font-bold text-xs">v1.1</span>
@@ -235,7 +215,6 @@
                     <p class="text-slate-300">• Исправлены вкладки</p>
                     <p class="text-slate-300">• Добавлена сортировка и карусель фото</p>
                 </div>
-
                 <div class="space-y-1 pt-3 border-t border-white/5">
                     <div class="flex items-center gap-2">
                         <span class="text-emerald-400 font-bold text-xs">v1.0</span>
@@ -243,13 +222,11 @@
                     </div>
                     <p class="text-slate-300">• Первый релиз портала</p>
                 </div>
-                <!-- ================================== -->
             </div>
         </div>
     </div>
 
     <script>
-        // ========== ДАННЫЕ ==========
         let properties = [
             {
                 id: 1,
@@ -293,7 +270,6 @@
         let currentSlideIndex = 0;
         let sortedProperties = [...properties];
 
-        // ========== НАВИГАЦИЯ ==========
         function switchTab(tabId) {
             ['home', 'estate', 'property-detail', 'news'].forEach(id => {
                 document.getElementById(`tab-${id}`).classList.add('hidden');
@@ -314,7 +290,6 @@
             }
         }
 
-        // ========== РЕНДЕР КАРТОЧЕК ==========
         function renderProperties() {
             const grid = document.getElementById('properties-grid');
             grid.innerHTML = '';
@@ -343,7 +318,6 @@
             });
         }
 
-        // ========== СОРТИРОВКА ==========
         function sortProperties() {
             const value = document.getElementById('sort-select').value;
             
@@ -357,6 +331,22 @@
             renderProperties();
         }
 
-        // ========== ОТКРЫТИЕ ОБЪЕКТА ==========
         function openProperty(id) {
-            currentProperty = 
+            currentProperty = properties.find(p => p.id === id);
+            currentSlideIndex = 0;
+
+            document.getElementById('det-title').textContent = currentProperty.title;
+            document.getElementById('det-price').textContent = currentProperty.priceFormatted;
+            document.getElementById('det-desc').textContent = currentProperty.desc;
+            document.getElementById('det-coords').textContent = `📍 Координаты: ${currentProperty.coords}`;
+
+            updateSlide();
+            switchTab('property-detail');
+        }
+
+        function updateSlide() {
+            const container = document.getElementById('det-img-container');
+            const dotsContainer = document.getElementById('det-dots');
+            const images = currentProperty.images;
+
+            container.innerHTML = `<img src="${images[currentSlideIndex]}" class="w-full h-full object-cover" alt="Фото">`;
