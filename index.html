@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Проект Акарданск | Портал недвижимости</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Плавные переходы */
+        .property-card {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .property-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 25px 50px -12px rgba(52, 211, 153, 0.25);
+        }
+
+        /* Шапка — анимация появления/исчезновения */
+        #main-header {
+            transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.35s ease;
+        }
+        #main-header.header-hidden {
+            transform: translateY(-100%);
+            opacity: 0;
+        }
+
+        /* Скрытая кнопка обновлений */
+        .secret-trigger {
+            opacity: 0.25;
+            font-size: 10px;
+            transition: opacity 0.3s;
+        }
+        .secret-trigger:hover {
+            opacity: 0.7;
+        }
+
+        /* Стеклянный эффект */
+        .glass {
+            background: rgba(15, 23, 42, 0.55);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+        .glass-strong {
+            background: rgba(15, 23, 42, 0.75);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+        }
+    </style>
+</head>
+<body class="bg-slate-950 text-slate-100 font-sans min-h-screen flex flex-col selection:bg-emerald-400 selection:text-slate-950">
+
+    <!-- ШАПКА -->
+    <header id="main-header" class="glass-strong border-b border-white/5 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 py-3.5 flex flex-col sm:flex-row justify-between items-center gap-3">
+            <div class="flex items-center gap-3 cursor-pointer group" onclick="switchTab('home')">
+                <div class="w-10 h-10 bg-gradient-to-br from-emerald-400 to-emerald-500 rounded-2xl flex items-center justify-center font-black text-slate-950 text-lg shadow-lg shadow-emerald-400/40 group-hover:scale-105 transition-transform">⚡</div>
+                <h1 class="text-lg font-extrabold tracking-wider text-emerald-400">АКАРДАНСК</h1>
+            </div>
+            <nav class="flex flex-wrap justify-center gap-1.5 text-sm font-semibold">
+                <button onclick="switchTab('home')" id="btn-home" class="nav-btn px-5 py-2 rounded-2xl bg-emerald-400 text-slate-950 font-bold transition shadow-md shadow-emerald-400/20">Главная</button>
+                <button onclick="switchTab('estate')" id="btn-estate" class="nav-btn px-5 py-2 rounded-2xl text-slate-300 hover:bg-white/10 transition">Недвижимость</button>
+                <button onclick="switchTab('news')" id="btn-news" class="nav-btn px-5 py-2 rounded-2xl text-slate-300 hover:bg-white/10 transition">Новости</button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- ОСНОВНОЙ КОНТЕНТ -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 py-10 w-full flex-grow space-y-10">
+
+        <!-- 1. ГЛАВНАЯ -->
+        <div id="tab-home" class="space-y-10">
+            <section class="relative overflow-hidden rounded-3xl p-8 sm:p-14 border border-white/10 shadow-2xl"
+                     style="background: linear-gradient(135deg, rgba(16,185,129,0.15) 0%, rgba(79,70,229,0.12) 50%, rgba(15,23,42,0.6) 100%); backdrop-filter: blur(20px);">
+                <div class="absolute -top-32 -right-32 w-80 h-80 bg-emerald-400/20 rounded-full blur-3xl"></div>
+                <div class="absolute -bottom-20 -left-20 w-64 h-64 bg-indigo-500/15 rounded-full blur-3xl"></div>
+                
+                <div class="relative space-y-6">
+                    <span class="inline-block bg-emerald-400/15 text-emerald-300 border border-emerald-400/25 text-xs px-4 py-1.5 rounded-full font-bold uppercase tracking-wider">Официальный портал сервера</span>
+                    <h2 class="text-4xl sm:text-6xl font-black text-white tracking-tight leading-[1.1]">
+                        Строим будущее<br>
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-300 to-emerald-500">Акарданска</span> вместе!
+                    </h2>
+                    <p class="text-slate-300 text-base sm:text-lg max-w-2xl leading-relaxed opacity-90">
+                        Интерактивная карта мира, рынок недвижимости с авто-синхронизацией и хроники строительства.
+                    </p>
+                    <div class="flex flex-wrap gap-3 pt-3">
+                        <button onclick="switchTab('estate')" class="bg-emerald-400 hover:bg-emerald-300 text-slate-950 font-bold px-7 py-3.5 rounded-2xl shadow-xl shadow-emerald-400/30 transition active:scale-95">
+                            Смотреть недвижимость 🏡
+                        </button>
+                        <button onclick="switchTab('news')" class="glass border border-white/10 hover:bg-white/10 text-slate-200 font-semibold px-7 py-3.5 rounded-2xl transition active:scale-95">
+                            Хроники строек 📢
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <section class="glass rounded-3xl p-6 sm:p-8 border border-white/5">
+                <h3 class="text-xl sm:text-2xl font-bold text-white mb-6 flex items-center gap-2">
+                    <span>🗺️</span> Интерактивная карта мира
+                </h3>
+                <div class="w-full h-72 sm:h-96 bg-slate-900/60 rounded-2xl flex items-center justify-center border border-white/5 text-slate-500">
+                    <div class="text-center space-y-3">
+                        <div class="text-5xl opacity-30">🗺️</div>
+                        <p class="text-sm opacity-60">Здесь будет встроена карта сервера</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- 2. НЕДВИЖИМОСТЬ -->
+        <div id="tab-estate" class="hidden space-y-6">
+            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 glass rounded-3xl p-6 border border-white/5">
+                <div>
+                    <h2 class="text-2xl font-black text-white">🏡 Рынок недвижимости</h2>
+                    <p class="text-slate-400 text-sm mt-1">Выбирай лучшие объекты на сервере</p>
+                </div>
+                <select id="sort-select" onchange="sortProperties()" 
+                    class="w-full sm:w-auto bg-slate-900/70 border border-white/10 text-slate-200 text-sm font-medium rounded-xl px-4 py-2.5 outline-none focus:border-emerald-400/50 focus:ring-1 focus:ring-emerald-400/20 transition cursor-pointer">
+                    <option value="default">Сортировка: По умолчанию</option>
+                    <option value="cheap">Сначала дешёвые</option>
+                    <option value="expensive">Сначала дорогие</option>
+                </select>
+            </div>
+            
+            <div id="properties-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+        </div>
+
+        <!-- 3. ДЕТАЛЬНЫЙ ПРОСМОТР -->
+        <div id="tab-property-detail" class="hidden space-y-6">
+            <button onclick="switchTab('estate')" 
+                class="inline-flex items-center gap-2 text-sm font-semibold glass border border-white/10 px-5 py-2.5 rounded-xl text-slate-200 hover:bg-white/10 transition">
+                ← Назад к каталогу
+            </button>
+
+            <div class="glass rounded-3xl p-6 sm:p-8 space-y-6 border border-white/5 shadow-xl">
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-white/5 pb-5">
+                    <h2 id="det-title" class="text-2xl sm:text-3xl font-black text-white">Название дома</h2>
+                    <span id="det-price" class="text-xl sm:text-2xl font-black text-emerald-300 bg-emerald-950/40 px-5 py-2 rounded-xl border border-emerald-500/20">0 ₽</span>
+                </div>
+
+                <!-- Карусель -->
+                <div class="relative w-full h-72 sm:h-96 bg-slate-900/80 rounded-2xl overflow-hidden border border-white/5">
+                    <div id="det-img-container" class="w-full h-full flex items-center justify-center text-slate-400">
+                        Загрузка фото...
+                    </div>
+                    <button onclick="prevSlide()" class="absolute left-3 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-emerald-400 hover:text-slate-950 text-white w-11 h-11 rounded-full flex items-center justify-center transition shadow-lg backdrop-blur-md">❮</button>
+                    <button onclick="nextSlide()" class="absolute right-3 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-emerald-400 hover:text-slate-950 text-white w-11 h-11 rounded-full flex items-center justify-center transition shadow-lg backdrop-blur-md">❯</button>
+                    <div id="det-dots" class="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2"></div>
+                </div>
+
+                <div class="space-y-2">
+                    <h3 class="text-lg font-bold text-white">Описание объекта</h3>
+                    <p id="det-desc" class="text-slate-300 leading-relaxed text-sm sm:text-base opacity-90">Описание...</p>
+                </div>
+
+                <div class="pt-4 border-t border-white/5 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 text-sm">
+                    <span id="det-coords" class="bg-slate-900/60 px-4 py-2 rounded-xl border border-white/5 text-slate-300 font-mono">📍 Координаты: X: 0, Z: 0</span>
+                    <span class="bg-emerald-400/15 text-emerald-300 border border-emerald-400/25 px-3 py-1.5 rounded-xl font-bold text-xs uppercase tracking-wide">Свободно</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 4. НОВОСТИ -->
+        <div id="tab-news" class="hidden space-y-6">
+            <div class="glass rounded-3xl p-6 border border-white/5">
+                <h2 class="text-2xl font-black text-white">📢 Новости проекта и хроники строек</h2>
+                <p class="text-slate-400 text-sm mt-1">Следи за тем, что возводят наши строители</p>
+            </div>
+            
+            <div class="space-y-4">
+                <div class="glass rounded-2xl p-6 border border-white/5 hover:border-emerald-400/20 transition">
+                    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                        <div class="space-y-2">
+                            <span class="inline-block text-xs bg-emerald-400/15 text-emerald-300 border border-emerald-400/25 px-3 py-1 rounded-full font-bold uppercase">Строительство</span>
+                            <h3 class="text-lg font-bold text-white">mmc159 возводит новую ратушу в центре</h3>
+                            <p class="text-slate-400 text-sm">Требуются ресурсы: булыжник, дубовые доски и стекло.</p>
+                        </div>
+                        <div class="text-xs bg-slate-900/60 border border-white/5 px-4 py-2.5 rounded-xl text-slate-400 font-mono whitespace-nowrap">
+                            📍 55.7558, 37.6173
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- ФУТЕР + СКРЫТАЯ ВКЛАДКА -->
+    <footer class="mt-16 border-t border-white/5">
+        <div class="max-w-7xl mx-auto px-4 py-8 text-center">
+            <p class="text-xs text-slate-500 mb-3">© 2026 Проект Акарданск. Все права защищены.</p>
+            
+            <!-- Скрытый триггер (очень незаметный) -->
+            <button onclick="toggleUpdatesPanel()" class="secret-trigger text-slate-600 hover:text-slate-400">
+                ···
+            </button>
+        </div>
+    </footer>
+
+    <!-- ПАНЕЛЬ ОБНОВЛЕНИЙ (скрыта по умолчанию) -->
+    <div id="updates-panel" class="fixed inset-0 z-[100] hidden items-center justify-center p-4" style="background: rgba(0,0,0,0.7); backdrop-filter: blur(8px);">
+        <div class="glass-strong w-full max-w-lg rounded-3xl border border-white/10 shadow-2xl overflow-hidden">
+            <div class="flex items-center justify-between px-6 py-4 border-b border-white/5">
+                <h3 class="text-lg font-bold text-white">Changelog / Обновления</h3>
+                <button onclick="toggleUpdatesPanel()" class="text-slate-400 hover:text-white transition text-xl leading-none">&times;</button>
+            </div>
+            <div class="p-6 max-h-[60vh] overflow-y-auto space-y-4 text-sm">
+                <!-- ===== СЮДА ДОБАВЛЯЙ ОБНОВЛЕНИЯ ===== -->
+                <div class="space-y-1">
+                    <div class="flex items-center gap-2">
+                        <span class="text-emerald-400 font-bold text-xs">v1.2</span>
+                        <span class="text-slate-500 text-xs">07.10.2026</span>
+                    </div>
+                    <p class="text-slate-300">• Полностью переработан дизайн (Apple-style glass)</p>
+                    <p class="text-slate-300">• Шапка теперь прячется при скролле вниз</p>
+                    <p class="text-slate-300">• Добавлена скрытая панель обновлений</p>
+                </div>
+
+                <div class="space-y-1 pt-3 border-t border-white/5">
+                    <div class="flex items-center gap-2">
+                        <span class="text-emerald-400 font-bold text-xs">v1.1</span>
+                        <span class="text-slate-500 text-xs">06.10.2026</span>
+                    </div>
+                    <p class="text-slate-300">• Исправлены вкладки</p>
+                    <p class="text-slate-300">• Добавлена сортировка и карусель фото</p>
+                </div>
+
+                <div class="space-y-1 pt-3 border-t border-white/5">
+                    <div class="flex items-center gap-2">
+                        <span class="text-emerald-400 font-bold text-xs">v1.0</span>
+                        <span class="text-slate-500 text-xs">05.10.2026</span>
+                    </div>
+                    <p class="text-slate-300">• Первый релиз портала</p>
+                </div>
+                <!-- ================================== -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ========== ДАННЫЕ ==========
+        let properties = [
+            {
+                id: 1,
+                title: "Солнечная вилла",
+                price: 18500000,
+                priceFormatted: "18 500 000 ₽",
+                coords: "55.7558, 37.6173",
+                desc: "Просторный двухэтажный дом с панорамными окнами, бассейном и садом 12 соток. 5 спален, гараж на 2 авто.",
+                images: [
+                    "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80",
+                    "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=800&q=80"
+                ]
+            },
+            {
+                id: 2,
+                title: "Лесной коттедж",
+                price: 9200000,
+                priceFormatted: "9 200 000 ₽",
+                coords: "55.8312, 37.4125",
+                desc: "Уютный деревянный дом в окружении леса. 3 спальни, камин, баня, участок 8 соток. Тихий район.",
+                images: [
+                    "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=800&q=80",
+                    "https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=800&q=80"
+                ]
+            },
+            {
+                id: 3,
+                title: "Современный таунхаус",
+                price: 14800000,
+                priceFormatted: "14 800 000 ₽",
+                coords: "55.7419, 37.6281",
+                desc: "Стильный таунхаус с открытой планировкой, террасой на крыше и умным домом. 4 комнаты, паркинг.",
+                images: [
+                    "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=format&fit=crop&w=800&q=80",
+                    "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=800&q=80"
+                ]
+            }
+        ];
+
+        let currentProperty = null;
+        let currentSlideIndex = 0;
+        let sortedProperties = [...properties];
+
+        // ========== НАВИГАЦИЯ ==========
+        function switchTab(tabId) {
+            ['home', 'estate', 'property-detail', 'news'].forEach(id => {
+                document.getElementById(`tab-${id}`).classList.add('hidden');
+            });
+
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.className = "nav-btn px-5 py-2 rounded-2xl text-slate-300 hover:bg-white/10 transition";
+            });
+
+            if (tabId === 'property-detail') {
+                document.getElementById('tab-property-detail').classList.remove('hidden');
+            } else {
+                document.getElementById(`tab-${tabId}`).classList.remove('hidden');
+                const btn = document.getElementById(`btn-${tabId}`);
+                if (btn) {
+                    btn.className = "nav-btn px-5 py-2 rounded-2xl bg-emerald-400 text-slate-950 font-bold transition shadow-md shadow-emerald-400/20";
+                }
+            }
+        }
+
+        // ========== РЕНДЕР КАРТОЧЕК ==========
+        function renderProperties() {
+            const grid = document.getElementById('properties-grid');
+            grid.innerHTML = '';
+
+            sortedProperties.forEach(prop => {
+                const card = document.createElement('div');
+                card.className = 'property-card glass rounded-2xl overflow-hidden cursor-pointer group border border-white/5';
+                card.onclick = () => openProperty(prop.id);
+
+                card.innerHTML = `
+                    <div class="relative h-52 overflow-hidden">
+                        <img src="\( {prop.images[0]}" alt=" \){prop.title}" 
+                             class="w-full h-full object-cover group-hover:scale-105 transition duration-700"
+                             loading="lazy">
+                        <div class="absolute top-3 right-3 bg-emerald-400 text-slate-950 text-xs font-bold px-3 py-1.5 rounded-xl shadow-lg shadow-emerald-400/30">
+                            ${prop.priceFormatted}
+                        </div>
+                    </div>
+                    <div class="p-5 space-y-2">
+                        <h3 class="text-lg font-bold text-white group-hover:text-emerald-300 transition">${prop.title}</h3>
+                        <p class="text-slate-400 text-sm line-clamp-2">${prop.desc}</p>
+                        <div class="pt-2 text-xs text-slate-500 font-mono">📍 ${prop.coords}</div>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        // ========== СОРТИРОВКА ==========
+        function sortProperties() {
+            const value = document.getElementById('sort-select').value;
+            
+            if (value === 'cheap') {
+                sortedProperties = [...properties].sort((a, b) => a.price - b.price);
+            } else if (value === 'expensive') {
+                sortedProperties = [...properties].sort((a, b) => b.price - a.price);
+            } else {
+                sortedProperties = [...properties];
+            }
+            renderProperties();
+        }
+
+        // ========== ОТКРЫТИЕ ОБЪЕКТА ==========
+        function openProperty(id) {
+            currentProperty = 
